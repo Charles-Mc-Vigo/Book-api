@@ -5,44 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Book</title>
     <style>
-        :root{
-            --gray : #3333;
-            --deam-gray: #696969;
-        }
-        *{
+        /* General Styles */
+        body {
             margin: 0;
             padding: 0;
-            font-family: sans-serif;
-        }
-        body{
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
             display: flex;
-            flex-direction: column;
-            height: 100vh;
             justify-content: center;
             align-items: center;
-            background-color: var(--deam-gray);
+            height: 100vh;
         }
-        
-        .container{
+
+        /* Container Styles */
+        .container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        /* Form Styles */
+        form {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: var(--gray);
-            color: #f5f5f5;
         }
-        
-        input[type=text],
-        input[type=number],
-        button{
-            padding: 10px 20px;
-            margin: 10px;
-            margin-bottom: 20px;
+
+        label {
+            font-size: 18px;
         }
-        label{
-            padding: 0 10px;
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #555;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Link Button Styles */
+        .link-button {
+            margin-top: 10px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .link-button:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -50,18 +84,20 @@
     <div class="container">
         <h2>Add New Book</h2>
         <form id="addBookForm">
-            <label for="title">Title:</label><br>
-            <input type="text" id="title" name="title" required><br>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
         
-            <label for="author">Author:</label><br>
-            <input type="text" id="author" name="author" required><br>
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required>
         
-            <label for="publish_year">Publish Year:</label><br>
-            <input type="number" id="publish_year" name="publish_year" required><br>
+            <label for="publish_year">Published Year:</label>
+            <input type="number" id="published_year" name="published_year" required>
         
             <button type="submit">Add Book</button>
         </form>
         <div id="message"></div>
+
+        <a href="index.html" class="link-button">Home</a>
     </div>
 
     <script>
@@ -72,7 +108,7 @@
             const newBook = {
                 title: formData.get('title'),
                 author: formData.get('author'),
-                publish_year: formData.get('publish_year')
+                published_year: formData.get('published_year')
             };
         
             try {

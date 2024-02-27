@@ -9,7 +9,7 @@ const bookSchema = mongoose.Schema;
 const book = new bookSchema({
     title: { type: String, required: true },
     author: { type: String, required: true },
-    publish_year: { type: Number, required: true },
+    published_year: { type: Number, required: true },
     createdAt: { type: Date, default: Date.now }
 });
 
@@ -49,11 +49,11 @@ app.get('/books', async (req, res) => {
 
 app.post('/books/addBook', async (req, res) => {
     try {
-        const { title, author, publish_year } = req.body;
+        const { title, author, published_year } = req.body;
         const newBook = new Book({
             title,
             author,
-            publish_year
+            published_year
         });
 
         const savedBook = await newBook.save();

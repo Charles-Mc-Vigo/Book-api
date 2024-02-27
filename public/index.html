@@ -4,11 +4,170 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BOOK API</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url('/assets/pexels-jess-bailey-designs-762686.jpg');
+            background-size: cover; /* Stretch the background image to cover the entire screen */
+            background-position: center;
+            height: 100vh; /* Ensure full viewport height */
+            position: relative; /* Positioning context for overlay */
+            color: #fff; /* Default text color */
+        }
+
+         /* Navigation Bar Styles */
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 30px 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-end; /* Align text to the right */
+        }
+
+        nav ul li {
+            margin-left: 20px; /* Adjust spacing between items */
+        }
+
+        nav ul li:first-child {
+            margin-left: 0; /* Remove margin from the first item */
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Background Overlay */
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+        }
+
+        /* Container Styles */
+        .container {
+            padding: 20px;
+            position: relative; /* Ensure z-index works */
+            z-index: 1; /* Ensure the container appears above the overlay */
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for table */
+        }
+
+        th:first-child,
+        td:first-child{
+            text-align: left;
+        }
+        th, td {
+            text-align: center;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            color: #333; /* Text color for table cells */
+            padding: 20px;
+        }
+
+        th {
+            background-color: #fff; /* White background for table headers */
+            color: #333; /* Text color for table headers */
+            font-weight: bold; /* Bold font weight for table headers */
+        }
+
+        /* Button Styles */
+        .button {
+            padding: 10px 20px;
+            background-color: rgba(0, 123, 255, 0.7); /* Semi-transparent background color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: rgba(0, 123, 255, 1); /* Fully opaque background color on hover */
+        }
+    </style>
 </head>
 <body>
-    <h1>welcome to BOOK API</h1>
-
-    <script src="script.js"></script>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/books">See Books</a></li>
+            <li><a href="/books/addBook">Add Book</a></li>
+        </ul>
+    </nav>
+    <div class="background-overlay"></div> <!-- Semi-transparent overlay -->
+    <div class="container">
+        <h1>LIBRATECH</h1>
+        <button class="button">See Books collection</button>
+        <button class="button"><a href="addBook.html" style="color: inherit; text-decoration: none;">Add Book</a></button>
+        <div id="bookTableContainer"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.querySelector('.button');
+        
+            button.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/books');
+                    const books = await response.json();
+        
+                    // Display the books in a table
+                    const tableContainer = document.getElementById('bookTableContainer');
+                    const table = document.createElement('table');
+                    const headerRow = table.insertRow();
+                    const headers = ['Title', 'Author', 'Publish Year'];
+                    headers.forEach(headerText => {
+                        const th = document.createElement('th');
+                        th.textContent = headerText;
+                        headerRow.appendChild(th);
+                    });
+        
+                    books.forEach(book => {
+                        const row = table.insertRow();
+                        const rowData = [book.title, book.author, book.published_year];
+                        rowData.forEach(cellData => {
+                            const cell = row.insertCell();
+                            cell.textContent = cellData;
+                        });
+                    });
+        
+                    tableContainer.innerHTML = ''; // Clear previous content
+                    tableContainer.appendChild(table);
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
