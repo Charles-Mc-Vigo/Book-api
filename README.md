@@ -14,7 +14,7 @@ This is a web application for managing a library of books. Users can view the co
 - **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB (with Mongoose ODM)
-- **Deployment:** [Insert deployment platform here, e.g., Heroku]
+- **Deployment:** `https://book-api-umber.vercel.app`
 
 ## Setup Instructions
 1. Clone the repository: `git clone [repository_url]`
